@@ -1,5 +1,6 @@
 
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef struct charItemStruct charItem;
 
@@ -10,6 +11,7 @@ struct charItemStruct {
 
 
 void outCharItem(const charItem *, int);
+void outCharItemsListRecursive(const charItem *);
 
 charItem* makeLinkedListFromItemsArray(charItem [], int arrayLength);
 
@@ -17,32 +19,25 @@ charItem* makeLinkedListFromItemsArray(charItem [], int arrayLength);
 int main(int argc, const char * argv[]) {
     printf("__\n\n");
 
-// single struct & output
-    charItem s1 = {1, NULL};
-    charItem s2 = {2, NULL};
-    charItem s3 = {3, NULL};
-    
-    charItem charItems[] = {s1, s2, s3};
-    for (int i = 0; i < 3; i++) {
-        outCharItem(&charItems[i], i);
+//create items array
+    int zize = 9;
+
+    charItem *charItems = (charItem *) malloc( zize * sizeof(charItem) );
+
+    for (int i = 0; i < zize; i++) {
+        charItem s1 = {i * 10 + 10, NULL};
+        *(charItems+i) = s1; // == charItems[i] = s1;
     }
-    
     
 // recursive output linkList
     
-    charItem *pList1 = makeLinkedListFromItemsArray(charItems, 3);
-    outCharItem(pList1, 0);
-    
-    charItem *pList2 = pList1->nextCharItem;
-    outCharItem(pList2, 0);
-
-    charItem *pList3 = pList2->nextCharItem;
-    outCharItem(pList3, 0);
-    
+    charItem *list = makeLinkedListFromItemsArray(charItems, zize);
+    outCharItemsListRecursive(list);
     
     printf("\n__\n");
     return 0;
 }
+
 
 charItem* makeLinkedListFromItemsArray(charItem items[], int length) {
     for (int i = 0; i < length - 1; i++) {
@@ -52,6 +47,16 @@ charItem* makeLinkedListFromItemsArray(charItem items[], int length) {
 }
 
 void outCharItem(const charItem *c, int tabsCount) {
-    for (int i = 0; i < tabsCount; i++) printf("\t");
-    printf("%d |\n", c->ch);
+    for (int i = 0; i < tabsCount; i++) {
+        printf("\t");
+    }
+    printf("| %d |\n", c->ch);
 }
+
+void outCharItemsListRecursive(const charItem *item) {
+    if (item->nextCharItem != NULL) {
+        outCharItem(item, 0);
+        outCharItemsListRecursive(item+1);
+    }
+}
+
