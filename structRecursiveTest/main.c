@@ -1,10 +1,3 @@
-//
-//  main.c
-//  structRecursiveTest
-//
-//  Created by Jone Doe on 30/04/15.
-//  Copyright (c) 2015 Jone Doe. All rights reserved.
-//
 
 #include <stdio.h>
 
@@ -15,15 +8,12 @@ struct charItem {
     charItem *nextCahr;
 };
 
-void outCharItem(const charItem *c, int tabsCount) {
-    for (int i = 0; i < tabsCount; i++)
-        printf("\t");
-    printf("%c\n", c->ch);
-}
+void outCharItem(const charItem *, int);
 
 int main(int argc, const char * argv[]) {
     printf("__\n\n");
-    
+
+// single struct & output
     charItem s1, s2, s3;
     s1.ch = 's';
     s2.ch = 'j';
@@ -33,7 +23,17 @@ int main(int argc, const char * argv[]) {
     for (int i = 0; i < 3; i++)
         outCharItem(&charItems[i], i);
     
+// recursive output linkList
+    
+    
     
     printf("\n__\n");
     return 0;
+}
+
+
+void outCharItem(const charItem *c, int tabsCount) {
+    for (int i = 0; i < tabsCount; i++)
+        printf("\t");
+    printf("%c\n", c->ch);
 }
