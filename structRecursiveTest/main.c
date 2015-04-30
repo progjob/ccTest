@@ -4,7 +4,7 @@
 typedef struct charItemStruct charItem;
 
 struct charItemStruct {
-    char ch;
+    int ch;
     charItem *nextCharItem;
 };
 
@@ -18,17 +18,10 @@ int main(int argc, const char * argv[]) {
     printf("__\n\n");
 
 // single struct & output
-    charItem s1, s2, s3;
+    charItem s1 = {1, NULL};
+    charItem s2 = {2, NULL};
+    charItem s3 = {3, NULL};
     
-    s1.nextCharItem = NULL;
-    s1.ch = 'a';
-    
-    s2.nextCharItem = NULL;
-    s2.ch = 'b';
-    
-    s3.nextCharItem = NULL;
-    s3.ch = 'c';
-
     charItem charItems[] = {s1, s2, s3};
     for (int i = 0; i < 3; i++) {
         outCharItem(&charItems[i], i);
@@ -59,7 +52,6 @@ charItem* makeLinkedListFromItemsArray(charItem items[], int length) {
 }
 
 void outCharItem(const charItem *c, int tabsCount) {
-    for (int i = 0; i < tabsCount; i++)
-        printf("\t");
-    printf("%c | \n", c->ch);
+    for (int i = 0; i < tabsCount; i++) printf("\t");
+    printf("%d |\n", c->ch);
 }
